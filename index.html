@@ -203,18 +203,35 @@
 .in-stock {
   position: relative;
 }
+
+/* Основной круг — сплошная линия, но с "неровной" формой */
 .in-stock::after {
   content: '';
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -55%) rotate(3deg);
-  width: 2.2em;
+  transform: translate(-50%, -50%) rotate(4deg) scale(0.95);
+  width: 2.2em;          /* подберите размер под букву */
   height: 2.2em;
-  border: 2px dashed #d62828;
-  border-radius: 60% 40% 50% 30%;
-  pointer-events: none;
+  border: 2.5px solid #d62828;  /* сплошная, не пунктир */
+  border-radius: 55% 45% 60% 40%; /* неправильный овал */
   box-sizing: border-box;
+  pointer-events: none;
+}
+
+/* "Хвост" — короткая линия, выходящая из круга */
+.in-stock::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(0.3em, -0.2em) rotate(25deg);
+  width: 0.7em;
+  height: 0.6em;
+  border-right: 2.5px solid #d62828;
+  border-bottom: 2.5px solid #d62828;
+  border-radius: 0 0 70% 0;
+  pointer-events: none;
 }
 
   @media (max-width:640px){
