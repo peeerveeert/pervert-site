@@ -9,18 +9,22 @@
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   *{margin:0;padding:0;box-sizing:border-box;}
-  html,body{height:100%;overflow:hidden;}
-  body{font-family:'JetBrains Mono',monospace;}
+  html{scroll-behavior:smooth;}
+  body{font-family:'JetBrains Mono',monospace;background:#f4f4f2;color:#0a0a0a;}
 
+  /* ===== HERO ===== */
+  .stage{
+    position:relative;
+    width:100vw;height:100vh;
+    overflow:hidden;
+  }
   .split{
     display:flex;
-    width:100vw;height:100vh;
-    flex-direction: column;
+    width:100%;height:100%;
   }
   .half{
-    width:50%;height:50%;
+    width:50%;height:100%;
     display:flex;align-items:center;justify-content:center;
-    position:relative;
   }
   .half.black{background:#0a0a0a;}
   .half.white{background:#f4f4f2;}
@@ -32,7 +36,7 @@
   }
 
   .wordmark{
-    position:fixed;
+    position:absolute;
     top:50%;left:50%;
     transform:translate(-50%,-50%);
     font-family:'Anton',sans-serif;
@@ -47,12 +51,12 @@
   }
 
   .info{
-    position:fixed;
+    position:absolute;
     bottom:34px;left:0;right:0;
     display:flex;
     justify-content:center;
     align-items:center;
-    gap:22px;
+    gap:16px;
     color:#fff;
     mix-blend-mode:difference;
     font-size:13px;
@@ -71,120 +75,217 @@
     border-radius:999px;
   }
 
-  .product-info, .size-guide, .availability {
-    position: fixed;
-    bottom: 140px;
-    left: 0;
-    right: 0;
-    background: rgba(10,10,10,0.95);
-    color: #fff;
-    mix-blend-mode: difference;
-    font-size: 13px;
-    padding: 20px;
-    z-index: 10;
-    max-height: 380px;
-    overflow-y: auto;
-  }
-  .product-info h2, .size-guide h2, .availability h2 {
-    margin-bottom: 10px;
-    color: #fff;
-    font-size: 15px;
-  }
-  .product-info p { line-height: 1.4; }
-  .size-guide table, .availability table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 12px;
-  }
-  .size-guide th, .availability th {
-    background: #333;
-    padding: 8px;
-    text-align: left;
-  }
-  .size-guide td, .availability td {
-    padding: 8px;
-    border-bottom: 1px solid #444;
+  .to-info{
+    position:absolute;
+    top:28px;right:28px;
+    color:#fff;
+    mix-blend-mode:difference;
+    font-size:12px;
+    letter-spacing:.1em;
+    text-decoration:none;
+    z-index:5;
   }
 
-  @media (max-width: 720px){
-    html,body{overflow:auto;}
-    .split{flex-direction:column;height:auto;min-height:100vh;}
+  @media (max-width:720px){
+    .split{flex-direction:column;height:auto;}
+    .stage{height:auto;min-height:100vh;}
     .half{width:100%;height:52vh;}
     .half img{max-width:70%;max-height:82%;}
-    .wordmark{position:absolute;top:50%;}
-    .info{position:absolute;bottom:16px;font-size:11px;gap:14px;}
-    .product-info, .size-guide, .availability { bottom: 120px; font-size: 11px; }
+    .info{bottom:16px;font-size:11px;gap:10px;}
+    .to-info{top:18px;right:18px;font-size:11px;}
+  }
+
+  /* ===== INFO SECTION ===== */
+  #info{
+    padding:100px 24px 70px;
+    max-width:920px;
+    margin:0 auto;
+  }
+  .info-head{
+    text-align:center;
+    margin-bottom:64px;
+  }
+  .info-head .kicker{
+    font-size:12px;letter-spacing:.15em;color:#8a8a86;
+    display:block;margin-bottom:10px;
+  }
+  .info-head h2{
+    font-family:'Anton',sans-serif;
+    font-size:clamp(32px,7vw,56px);
+    letter-spacing:.01em;
+  }
+
+  .models{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:1px;
+    background:#dcdcd8;
+    border-top:1px solid #dcdcd8;
+    border-bottom:1px solid #dcdcd8;
+    margin-bottom:56px;
+  }
+  .model{
+    background:#f4f4f2;
+    padding:34px 28px;
+  }
+  .model h3{
+    font-family:'Anton',sans-serif;
+    font-size:26px;
+    letter-spacing:.02em;
+    margin-bottom:18px;
+  }
+  .model .stat{
+    display:flex;justify-content:space-between;
+    font-size:12.5px;
+    padding:8px 0;
+    border-top:1px solid #dcdcd8;
+  }
+  .model .stat:first-of-type{border-top:none;}
+  .model .stat span:first-child{color:#8a8a86;}
+
+  .sizes{margin-bottom:56px;}
+  .sizes h4{
+    font-size:12px;letter-spacing:.12em;color:#8a8a86;
+    margin-bottom:16px;text-align:center;
+  }
+  table{
+    width:100%;
+    border-collapse:collapse;
+    font-size:12px;
+    margin-bottom:28px;
+  }
+  table caption{
+    text-align:left;
+    font-family:'Anton',sans-serif;
+    font-size:15px;
+    letter-spacing:.02em;
+    margin-bottom:10px;
+  }
+  th,td{
+    border:1px solid #dcdcd8;
+    padding:8px 6px;
+    text-align:center;
+  }
+  th{color:#8a8a86;font-weight:500;}
+  td:first-child,th:first-child{
+    text-align:left;color:#8a8a86;
+  }
+
+  .manifest{
+    border-top:1px solid #dcdcd8;
+    padding-top:28px;
+  }
+  .manifest h4{
+    font-size:12px;letter-spacing:.12em;color:#8a8a86;
+    margin-bottom:16px;
+  }
+  .manifest .row{
+    display:flex;justify-content:space-between;
+    font-size:12.5px;padding:7px 0;
+    border-bottom:1px dashed #dcdcd8;
+  }
+  .manifest .row.total{
+    border-bottom:none;border-top:1px solid #0a0a0a;
+    margin-top:6px;padding-top:14px;
+    font-weight:500;
+  }
+
+  .back{
+    display:block;
+    text-align:center;
+    margin-top:60px;
+    font-size:12px;
+    letter-spacing:.1em;
+    color:#8a8a86;
+    text-decoration:none;
+  }
+
+  @media (max-width:640px){
+    .models{grid-template-columns:1fr;}
+    table{font-size:10.5px;}
+    th,td{padding:6px 3px;}
   }
 </style>
 </head>
 <body>
 
-<div class="split">
-  <div class="half black">
-    <img src="tee-white.png" alt="PERVERT tee, white colorway">
+<div class="stage" id="top">
+  <div class="split">
+    <div class="half black">
+      <img src="tee-white.jpg" alt="PERVERT tee, white colorway">
+    </div>
+    <div class="half white">
+      <img src="tee-black.jpg" alt="PERVERT tee, black colorway">
+    </div>
   </div>
-  <div class="half white">
-    <img src="tee-black.png" alt="PERVERT tee, black colorway">
+
+  <a class="to-info" href="#info">О ТОВАРЕ ↓</a>
+
+  <div class="wordmark">PERVERT</div>
+
+  <div class="info">
+    <span class="price"><span class="old">3000₽</span><span class="new">2000₽</span></span>
+    <span class="badge">−33%</span>
+    <span class="badge">30 ЭКЗ.</span>
+    <span class="badge">LIMITED EDITION</span>
   </div>
 </div>
 
-<div class="wordmark">PERVERT</div>
+<section id="info">
+  <div class="info-head">
+    <span class="kicker">SPEC SHEET / PERVERT — 001</span>
+    <h2>О товаре</h2>
+  </div>
 
-<div class="info">
-  <span class="price"><span class="old">3000₽</span><span class="new">2000₽</span></span>
-  <span class="badge">−33%</span>
-  <span class="badge">LIMITED EDITION</span>
-</div>
+  <div class="models">
+    <div class="model">
+      <h3>HAMMER</h3>
+      <div class="stat"><span>Плотность</span><span>203 г/м²</span></div>
+      <div class="stat"><span>Состав</span><span>100% хлопок</span></div>
+      <div class="stat"><span>Крой</span><span>классический, без боковых швов</span></div>
+      <div class="stat"><span>Ощущение</span><span>плотнее, тяжелее</span></div>
+    </div>
+    <div class="model">
+      <h3>SOFTSTYLE MIDWEIGHT</h3>
+      <div class="stat"><span>Плотность</span><span>185 г/м²</span></div>
+      <div class="stat"><span>Состав</span><span>100% хлопок</span></div>
+      <div class="stat"><span>Крой</span><span>классический, без боковых швов</span></div>
+      <div class="stat"><span>Ощущение</span><span>мягче, посадка свободнее</span></div>
+    </div>
+  </div>
 
-<!-- Описание -->
-<section class="product-info">
-  <h2>МАТЕРИАЛ:</h2>
-  <p>Мягкий 100% хлопок с плотностью 203 г/м²<br><br>
-  Классический крой, без боковых швов: обеспечивает комфорт в повседневной носке. Самая премиум футболка из нашего каталога — Хаммер выбирают для брендов одежды и премиум мерча.</p>
+  <div class="sizes">
+    <h4>РАЗМЕРНАЯ СЕТКА, СМ</h4>
 
-  <h2>РАЗМЕРЫ:</h2>
-  <p>S / M / L / XL / XXL</p>
-</section>
+    <table>
+      <caption>HAMMER</caption>
+      <tr><th>Параметр</th><th>S</th><th>M</th><th>L</th><th>XL</th><th>XXL</th></tr>
+      <tr><td>Ширина</td><td>45</td><td>48</td><td>55</td><td>57</td><td>66</td></tr>
+      <tr><td>Длина</td><td>72</td><td>74,5</td><td>75</td><td>78</td><td>81</td></tr>
+      <tr><td>Рукав</td><td>19</td><td>22,5</td><td>21</td><td>24</td><td>25</td></tr>
+      <tr><td>Плечо</td><td>14</td><td>14</td><td>17</td><td>19</td><td>22</td></tr>
+    </table>
 
-<!-- Размерная сетка -->
-<section class="size-guide">
-  <h2>РАЗМЕРНАЯ СЕТКА</h2>
-  <table>
-    <thead>
-      <tr>
-        <th>РАЗМЕР</th>
-        <th>S</th><th>M</th><th>L</th><th>XL</th><th>XXL</th><th>XXXL</th><th>XXXXL</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr><td>ШИРИНА</td><td>45</td><td>48</td><td>55</td><td>57</td><td>66</td><td>69</td><td>74</td></tr>
-      <tr><td>ДЛИНА</td><td>72</td><td>74,5</td><td>75</td><td>78</td><td>81</td><td>84</td><td>87</td></tr>
-      <tr><td>РУКАВ</td><td>19</td><td>22,5</td><td>21</td><td>24</td><td>25</td><td>25,5</td><td>25,5</td></tr>
-      <tr><td>ПЛЕЧО</td><td>14</td><td>14</td><td>17</td><td>19</td><td>22</td><td>24</td><td>26</td></tr>
-    </tbody>
-  </table>
-</section>
+    <table>
+      <caption>SOFTSTYLE MIDWEIGHT</caption>
+      <tr><th>Параметр</th><th>S</th><th>M</th><th>L</th><th>XL</th><th>XXL</th></tr>
+      <tr><td>Ширина</td><td>46</td><td>50</td><td>53</td><td>60</td><td>66</td></tr>
+      <tr><td>Длина</td><td>72</td><td>72,5</td><td>77</td><td>78</td><td>78,5</td></tr>
+      <tr><td>Рукав</td><td>21,5</td><td>23</td><td>21,5</td><td>24</td><td>23</td></tr>
+      <tr><td>Плечо</td><td>13</td><td>14</td><td>18</td><td>19</td><td>21,5</td></tr>
+    </table>
+  </div>
 
-<!-- Наличие -->
-<section class="availability">
-  <h2>НАЛИЧИЕ</h2>
-  <table>
-    <thead>
-      <tr>
-        <th>Тип текстиля / Цвет</th>
-        <th>Общ.</th>
-        <th>S</th>
-        <th>M</th>
-        <th>L</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr><td>hammer / black</td><td>8</td><td>6</td><td>2</td></tr>
-      <tr><td>hammer / white</td><td>8</td><td>6</td><td>2</td></tr>
-      <tr><td>softstyle midweight / black</td><td>7</td><td>5</td><td>2</td></tr>
-      <tr><td>softstyle midweight / white</td><td>7</td><td>5</td><td>2</td></tr>
-    </tbody>
-  </table>
+  <div class="manifest">
+    <h4>ТИРАЖ</h4>
+    <div class="row"><span>Hammer / Black</span><span>8 шт</span></div>
+    <div class="row"><span>Hammer / White</span><span>8 шт</span></div>
+    <div class="row"><span>Softstyle Midweight / Black</span><span>7 шт</span></div>
+    <div class="row"><span>Softstyle Midweight / White</span><span>7 шт</span></div>
+    <div class="row total"><span>Всего в коллекции</span><span>30 шт</span></div>
+  </div>
+
+  <a class="back" href="#top">↑ НАВЕРХ</a>
 </section>
 
 </body>
