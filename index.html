@@ -86,6 +86,17 @@
     z-index:5;
   }
 
+  .contact{
+    position:absolute;
+    top:28px;left:28px;
+    color:#fff;
+    mix-blend-mode:difference;
+    font-size:12px;
+    letter-spacing:.1em;
+    text-decoration:none;
+    z-index:5;
+  }
+
   @media (max-width:720px){
     .split{flex-direction:column;height:auto;}
     .stage{height:auto;min-height:100vh;}
@@ -93,6 +104,7 @@
     .half img{max-width:70%;max-height:82%;}
     .info{bottom:16px;font-size:11px;gap:10px;}
     .to-info{top:18px;right:18px;font-size:11px;}
+    .contact{top:18px;left:18px;font-size:11px;}
   }
 
   /* ===== INFO SECTION ===== */
@@ -152,7 +164,7 @@
     width:100%;
     border-collapse:collapse;
     font-size:12px;
-    margin-bottom:28px;
+    margin-bottom:12px;
   }
   table caption{
     text-align:left;
@@ -169,6 +181,25 @@
   th{color:#8a8a86;font-weight:500;}
   td:first-child,th:first-child{
     text-align:left;color:#8a8a86;
+  }
+
+  .legend{
+    font-size:11px;
+    color:#8a8a86;
+    text-align:right;
+    margin-bottom:28px;
+    display:flex;
+    justify-content:flex-end;
+    align-items:center;
+    gap:6px;
+  }
+  .legend .dot{
+    display:inline-block;
+    width:1em;height:1em;
+    border:2px solid #d62828;
+    border-radius:55% 45% 60% 35%;
+    transform:rotate(5deg);
+    box-sizing:border-box;
   }
 
   .manifest{
@@ -189,6 +220,10 @@
     margin-top:6px;padding-top:14px;
     font-weight:500;
   }
+  .manifest .row a{
+    color:#0a0a0a;
+    text-decoration:underline;
+  }
 
   .back{
     display:block;
@@ -199,25 +234,21 @@
     color:#8a8a86;
     text-decoration:none;
   }
- 
- .in-stock {
-  position: relative;
-}
 
-/* Основной круг — сплошной, но с "рукописной" формой */
-.in-stock::after {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%) rotate(5deg) scale(0.95);
-  width: 2em;             
-  height: 2em;
-  border: 2.5px solid #d62828;
-  border-radius: 55% 45% 60% 35%;  
-  box-sizing: border-box;
-  pointer-events: none;
-}
+  .in-stock{
+    position:relative;
+  }
+  .in-stock::after{
+    content:'';
+    position:absolute;
+    top:50%;left:50%;
+    transform:translate(-50%,-50%) rotate(5deg) scale(0.95);
+    width:2em;height:2em;
+    border:2.5px solid #d62828;
+    border-radius:55% 45% 60% 35%;
+    box-sizing:border-box;
+    pointer-events:none;
+  }
 
   @media (max-width:640px){
     .models{grid-template-columns:1fr;}
@@ -238,6 +269,7 @@
     </div>
   </div>
 
+  <a class="contact" href="https://t.me/Su_ssy" target="_blank" rel="noopener">TELEGRAM ↗</a>
   <a class="to-info" href="#info">О ТОВАРЕ ↓</a>
 
   <div class="wordmark">PERVERT</div>
@@ -293,6 +325,8 @@
       <tr><td>Рукав</td><td>21,5</td><td>23</td><td>21,5</td><td>24</td><td>23</td></tr>
       <tr><td>Плечо</td><td>13</td><td>14</td><td>18</td><td>19</td><td>21,5</td></tr>
     </table>
+
+    <div class="legend"><span class="dot"></span> — размер в наличии</div>
   </div>
 
   <div class="manifest">
@@ -302,6 +336,14 @@
     <div class="row"><span>DIVINE / Black</span><span>7 шт</span></div>
     <div class="row"><span>DIVINE / White</span><span>7 шт</span></div>
     <div class="row total"><span>Всего в коллекции</span><span>30 шт</span></div>
+  </div>
+
+  <div class="manifest" style="margin-top:40px;">
+    <h4>СВЯЗЬ</h4>
+    <div class="row">
+      <span>По вопросам размера, наличия и покупки</span>
+      <a href="https://t.me/Su_ssy" target="_blank" rel="noopener">Telegram ↗</a>
+    </div>
   </div>
 
   <a class="back" href="#top">↑ НАВЕРХ</a>
