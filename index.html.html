@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PERVERT — release</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{font-family:'JetBrains Mono',monospace;background:#f4f4f2;color:#0a0a0a;}
+
+  /* ===== HERO ===== */
+  .stage{
+    position:relative;
+    width:100vw;height:100vh;
+    overflow:hidden;
+  }
+  .split{
+    display:flex;
+    width:100%;height:100%;
+  }
+  .half{
+    width:50%;height:100%;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .half.black{background:#0a0a0a;}
+  .half.white{background:#f4f4f2;}
+  .half img{
+    max-width:62%;
+    max-height:78%;
+    object-fit:contain;
+    filter:drop-shadow(0 20px 40px rgba(0,0,0,.25));
+  }
+
+  .wordmark{
+    position:absolute;
+    top:50%;left:50%;
+    transform:translate(-50%,-50%);
+    font-family:'Anton',sans-serif;
+    font-size:clamp(56px,14vw,220px);
+    letter-spacing:.01em;
+    color:#fff;
+    mix-blend-mode:difference;
+    white-space:nowrap;
+    pointer-events:none;
+    user-select:none;
+    z-index:5;
+  }
+
+  .info{
+    position:absolute;
+    bottom:34px;left:0;right:0;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:16px;
+    color:#fff;
+    mix-blend-mode:difference;
+    font-size:13px;
+    letter-spacing:.06em;
+    z-index:5;
+    flex-wrap:wrap;
+    text-align:center;
+    padding:0 20px;
+  }
+  .info .price{display:flex;align-items:baseline;gap:8px;}
+  .price .old{text-decoration:line-through;opacity:.55;}
+  .price .new{font-size:16px;font-weight:500;}
+  .info .badge{
+    border:1px solid currentColor;
+    padding:4px 10px;
+    border-radius:999px;
+  }
+
+  .to-info{
+    position:absolute;
+    top:28px;right:28px;
+    color:#fff;
+    mix-blend-mode:difference;
+    font-size:12px;
+    letter-spacing:.1em;
+    text-decoration:none;
+    z-index:5;
+  }
+
+  .contact{
+    position:absolute;
+    top:28px;left:28px;
+    color:#fff;
+    mix-blend-mode:difference;
+    font-size:12px;
+    letter-spacing:.1em;
+    text-decoration:none;
+    z-index:5;
+  }
+
+  @media (max-width:720px){
+    .split{flex-direction:column;height:auto;}
+    .stage{height:auto;min-height:100vh;}
+    .half{width:100%;height:52vh;}
+    .half img{max-width:70%;max-height:82%;}
+    .info{bottom:16px;font-size:11px;gap:10px;}
+    .to-info{top:18px;right:18px;font-size:11px;}
+    .contact{top:18px;left:18px;font-size:11px;}
+  }
+
+  /* ===== INFO SECTION ===== */
+  #info{
+    padding:100px 24px 70px;
+    max-width:920px;
+    margin:0 auto;
+  }
+  .info-head{
+    text-align:center;
+    margin-bottom:64px;
+  }
+  .info-head .kicker{
+    font-size:12px;letter-spacing:.15em;color:#8a8a86;
+    display:block;margin-bottom:10px;
+  }
+  .info-head h2{
+    font-family:'Anton',sans-serif;
+    font-size:clamp(32px,7vw,56px);
+    letter-spacing:.01em;
+  }
+
+  .models{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:1px;
+    background:#dcdcd8;
+    border-top:1px solid #dcdcd8;
+    border-bottom:1px solid #dcdcd8;
+    margin-bottom:56px;
+  }
+  .model{
+    background:#f4f4f2;
+    padding:34px 28px;
+  }
+  .model h3{
+    font-family:'Anton',sans-serif;
+    font-size:26px;
+    letter-spacing:.02em;
+    margin-bottom:18px;
+  }
+  .model .stat{
+    display:flex;justify-content:space-between;
+    font-size:12.5px;
+    padding:8px 0;
+    border-top:1px solid #dcdcd8;
+  }
+  .model .stat:first-of-type{border-top:none;}
+  .model .stat span:first-child{color:#8a8a86;}
+
+  .sizes{margin-bottom:56px;}
+  .sizes h4{
+    font-size:12px;letter-spacing:.12em;color:#8a8a86;
+    margin-bottom:16px;text-align:center;
+  }
+  table{
+    width:100%;
+    border-collapse:collapse;
+    font-size:12px;
+    margin-bottom:12px;
+  }
+  table caption{
+    text-align:left;
+    font-family:'Anton',sans-serif;
+    font-size:15px;
+    letter-spacing:.02em;
+    margin-bottom:10px;
+  }
+  th,td{
+    border:1px solid #dcdcd8;
+    padding:8px 6px;
+    text-align:center;
+  }
+  th{color:#8a8a86;font-weight:500;}
+  td:first-child,th:first-child{
+    text-align:left;color:#8a8a86;
+  }
+
+  .legend{
+    font-size:11px;
+    color:#8a8a86;
+    text-align:right;
+    margin-bottom:28px;
+    display:flex;
+    justify-content:flex-end;
+    align-items:center;
+    gap:6px;
+  }
+  .legend .dot{
+    display:inline-block;
+    width:1em;height:1em;
+    border:2px solid #d62828;
+    border-radius:55% 45% 60% 35%;
+    transform:rotate(5deg);
+    box-sizing:border-box;
+  }
+
+  .gallery-wrap{margin-bottom:56px;}
+  .gallery-wrap h4{
+    font-size:12px;letter-spacing:.12em;color:#8a8a86;
+    margin-bottom:16px;text-align:center;
+  }
+  .gallery{
+    display:flex;
+    gap:12px;
+    overflow-x:auto;
+    scroll-snap-type:x mandatory;
+    -webkit-overflow-scrolling:touch;
+    padding-bottom:6px;
+  }
+  .gallery::-webkit-scrollbar{height:4px;}
+  .gallery::-webkit-scrollbar-thumb{background:#dcdcd8;}
+  .gallery img{
+    flex:0 0 78%;
+    max-width:340px;
+    aspect-ratio:4/5;
+    object-fit:cover;
+    scroll-snap-align:center;
+    border:1px solid #dcdcd8;
+  }
+  @media (min-width:720px){
+    .gallery img{flex:0 0 calc(25% - 9px);}
+  }
+
+  .manifest{
+    border-top:1px solid #dcdcd8;
+    padding-top:28px;
+  }
+  .manifest h4{
+    font-size:12px;letter-spacing:.12em;color:#8a8a86;
+    margin-bottom:16px;
+  }
+  .manifest .row{
+    display:flex;justify-content:space-between;
+    font-size:12.5px;padding:7px 0;
+    border-bottom:1px dashed #dcdcd8;
+  }
+  .manifest .row.total{
+    border-bottom:none;border-top:1px solid #0a0a0a;
+    margin-top:6px;padding-top:14px;
+    font-weight:500;
+  }
+  .manifest .row a{
+    color:#0a0a0a;
+    text-decoration:underline;
+  }
+
+  .back{
+    display:block;
+    text-align:center;
+    margin-top:60px;
+    font-size:12px;
+    letter-spacing:.1em;
+    color:#8a8a86;
+    text-decoration:none;
+  }
+
+  .in-stock{
+    position:relative;
+  }
+  .in-stock::after{
+    content:'';
+    position:absolute;
+    top:50%;left:50%;
+    transform:translate(-50%,-50%) rotate(5deg) scale(0.95);
+    width:2em;height:2em;
+    border:2.5px solid #d62828;
+    border-radius:55% 45% 60% 35%;
+    box-sizing:border-box;
+    pointer-events:none;
+  }
+
+  @media (max-width:640px){
+    .models{grid-template-columns:1fr;}
+    table{font-size:10.5px;}
+    th,td{padding:6px 3px;}
+  }
+</style>
+</head>
+<body>
+
+<div class="stage" id="top">
+  <div class="split">
+    <div class="half black">
+      <img src="tee-white.png" alt="PERVERT tee, white colorway">
+    </div>
+    <div class="half white">
+      <img src="tee-black.png" alt="PERVERT tee, black colorway">
+    </div>
+  </div>
+
+  <a class="contact" href="https://t.me/Su_ssy" target="_blank" rel="noopener">TELEGRAM ↗</a>
+  <a class="to-info" href="#info">О ТОВАРЕ ↓</a>
+
+  <div class="wordmark">PERVERT</div>
+
+  <div class="info">
+    <span class="price"><span class="old">3000₽</span><span class="new">2000₽</span></span>
+    <span class="badge">−33%</span>
+    <span class="badge" id="stock-badge"><!-- поменяйте цифру вручную по мере продаж -->ОСТАЛОСЬ 27 ИЗ 30</span>
+    <span class="badge">LIMITED EDITION</span>
+  </div>
+</div>
+
+<section id="info">
+  <div class="info-head">
+    <span class="kicker">SPEC SHEET / PERVERT — 001</span>
+    <h2>О товаре</h2>
+  </div>
+
+  <div class="models">
+    <div class="model">
+      <h3>CARNAL</h3>
+      <div class="stat"><span>Плотность</span><span>203 г/м²</span></div>
+      <div class="stat"><span>Состав</span><span>100% хлопок</span></div>
+      <div class="stat"><span>Крой</span><span>классический, без боковых швов</span></div>
+      <div class="stat"><span>Ощущение</span><span>плотнее, тяжелее</span></div>
+    </div>
+    <div class="model">
+      <h3>DIVINE</h3>
+      <div class="stat"><span>Плотность</span><span>185 г/м²</span></div>
+      <div class="stat"><span>Состав</span><span>100% хлопок</span></div>
+      <div class="stat"><span>Крой</span><span>классический, без боковых швов</span></div>
+      <div class="stat"><span>Ощущение</span><span>мягче, посадка свободнее</span></div>
+    </div>
+  </div>
+
+  <div class="sizes">
+    <h4>РАЗМЕРНАЯ СЕТКА, СМ</h4>
+
+    <table>
+      <caption>CARNAL</caption>
+      <tr><th>Параметр</th><th>S</th><th class="in-stock">M</th><th class="in-stock">L</th><th>XL</th><th>XXL</th></tr>
+      <tr><td>Ширина</td><td>45</td><td>48</td><td>55</td><td>57</td><td>66</td></tr>
+      <tr><td>Длина</td><td>72</td><td>74,5</td><td>75</td><td>78</td><td>81</td></tr>
+      <tr><td>Рукав</td><td>19</td><td>22,5</td><td>21</td><td>24</td><td>25</td></tr>
+      <tr><td>Плечо</td><td>14</td><td>14</td><td>17</td><td>19</td><td>22</td></tr>
+    </table>
+
+    <table>
+      <caption>DIVINE</caption>
+      <tr><th>Параметр</th><th>S</th><th class="in-stock">M</th><th class="in-stock">L</th><th>XL</th><th>XXL</th></tr>
+      <tr><td>Ширина</td><td>46</td><td>50</td><td>53</td><td>60</td><td>66</td></tr>
+      <tr><td>Длина</td><td>72</td><td>72,5</td><td>77</td><td>78</td><td>78,5</td></tr>
+      <tr><td>Рукав</td><td>21,5</td><td>23</td><td>21,5</td><td>24</td><td>23</td></tr>
+      <tr><td>Плечо</td><td>13</td><td>14</td><td>18</td><td>19</td><td>21,5</td></tr>
+    </table>
+
+    <div class="legend"><span class="dot"></span> — размер в наличии</div>
+  </div>
+
+  <div class="gallery-wrap">
+    <h4>ВЖИВУЮ</h4>
+    <div class="gallery">
+      <img src="IMG1200.jpg" alt="PERVERT tee, живое фото 1">
+      <img src="IMG1242.jpg" alt="PERVERT tee, живое фото 2">
+      <img src="IMG2863.jpg" alt="PERVERT tee, живое фото 3">
+      <img src="IMG2867.jpg" alt="PERVERT tee, живое фото 4">
+    </div>
+  </div>
+
+  <div class="manifest">
+    <h4>ТИРАЖ</h4>
+    <div class="row"><span>CARNAL / Black</span><span>8 шт</span></div>
+    <div class="row"><span>CARNAL / White</span><span>8 шт</span></div>
+    <div class="row"><span>DIVINE / Black</span><span>7 шт</span></div>
+    <div class="row"><span>DIVINE / White</span><span>7 шт</span></div>
+    <div class="row total"><span>Всего в коллекции</span><span>30 шт</span></div>
+    <div class="row"><span>Осталось сейчас <!-- поменяйте вручную --></span><span>27 шт</span></div>
+  </div>
+
+  <div class="manifest" style="margin-top:40px;">
+    <h4>СВЯЗЬ</h4>
+    <div class="row">
+      <span>По вопросам размера, наличия и покупки</span>
+      <a href="https://t.me/Su_ssy" target="_blank" rel="noopener">Telegram ↗</a>
+    </div>
+  </div>
+
+  <a class="back" href="#top">↑ НАВЕРХ</a>
+</section>
+
+</body>
+</html>
