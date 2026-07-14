@@ -202,6 +202,33 @@
     box-sizing:border-box;
   }
 
+  .gallery-wrap{margin-bottom:56px;}
+  .gallery-wrap h4{
+    font-size:12px;letter-spacing:.12em;color:#8a8a86;
+    margin-bottom:16px;text-align:center;
+  }
+  .gallery{
+    display:flex;
+    gap:12px;
+    overflow-x:auto;
+    scroll-snap-type:x mandatory;
+    -webkit-overflow-scrolling:touch;
+    padding-bottom:6px;
+  }
+  .gallery::-webkit-scrollbar{height:4px;}
+  .gallery::-webkit-scrollbar-thumb{background:#dcdcd8;}
+  .gallery img{
+    flex:0 0 78%;
+    max-width:340px;
+    aspect-ratio:4/5;
+    object-fit:cover;
+    scroll-snap-align:center;
+    border:1px solid #dcdcd8;
+  }
+  @media (min-width:720px){
+    .gallery img{flex:0 0 calc(25% - 9px);}
+  }
+
   .manifest{
     border-top:1px solid #dcdcd8;
     padding-top:28px;
@@ -277,7 +304,7 @@
   <div class="info">
     <span class="price"><span class="old">3000₽</span><span class="new">2000₽</span></span>
     <span class="badge">−33%</span>
-    <span class="badge">30 ЭКЗ.</span>
+    <span class="badge" id="stock-badge"><!-- поменяйте цифру вручную по мере продаж -->ОСТАЛОСЬ 27 ИЗ 30</span>
     <span class="badge">LIMITED EDITION</span>
   </div>
 </div>
@@ -329,6 +356,16 @@
     <div class="legend"><span class="dot"></span> — размер в наличии</div>
   </div>
 
+  <div class="gallery-wrap">
+    <h4>ВЖИВУЮ</h4>
+    <div class="gallery">
+      <img src="IMG1200.jpg" alt="PERVERT tee, живое фото 1">
+      <img src="IMG1242.jpg" alt="PERVERT tee, живое фото 2">
+      <img src="IMG2863.jpg" alt="PERVERT tee, живое фото 3">
+      <img src="IMG2867.jpg" alt="PERVERT tee, живое фото 4">
+    </div>
+  </div>
+
   <div class="manifest">
     <h4>ТИРАЖ</h4>
     <div class="row"><span>CARNAL / Black</span><span>8 шт</span></div>
@@ -336,6 +373,7 @@
     <div class="row"><span>DIVINE / Black</span><span>7 шт</span></div>
     <div class="row"><span>DIVINE / White</span><span>7 шт</span></div>
     <div class="row total"><span>Всего в коллекции</span><span>30 шт</span></div>
+    <div class="row"><span>Осталось сейчас <!-- поменяйте вручную --></span><span>27 шт</span></div>
   </div>
 
   <div class="manifest" style="margin-top:40px;">
